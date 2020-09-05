@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import Icon from './Icon'
-import ThemeView from './ThemeView'
-import { useThemeColor } from './Themed'
+import Icon from 'components/Icon'
+import ThemeView from 'components/ThemeView'
+import { useThemeColor } from 'components/Themed'
 
 export interface BaseSearchProps {
     value: string
@@ -37,7 +37,11 @@ const BaseSearch: FunctionComponent<BaseSearchProps> = ({
     const textColor = useThemeColor({}, 'typographyLight')
 
     return (
-        <ThemeView mode="inputView" borderMode="inputBorder" style={styles.container}>
+        <ThemeView
+            mode="inputView"
+            borderMode="inputBorder"
+            style={styles.container}
+        >
             <TextInput
                 style={[
                     styles.input,

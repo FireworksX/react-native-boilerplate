@@ -12,11 +12,11 @@ const DEFAULT_STORES: string[] = [
     'eventsScreen',
     'profileScreen',
     'calendarScreen',
-    'profileCities'
+    'profileCities',
 ]
 
 export default function (Component: any, stores?: string[]) {
-    const proxyStores = stores ? stores : DEFAULT_STORES
+    const proxyStores = stores ?? DEFAULT_STORES
 
     return inject(...proxyStores)(observer(Component))
 }

@@ -28,9 +28,9 @@ const BaseView = ({ children, style, modal, loading }: ViewWithModalProps) => {
             }}
         >
             {children}
-            {activeModal && <Modal transparent={true}>{modal}</Modal>}
+            {activeModal && <Modal transparent>{modal}</Modal>}
             {loading && (
-                <Modal transparent={true}>
+                <Modal transparent>
                     <View style={styles.loaderLayout}>
                         <View style={styles.overlay}></View>
                         <View style={styles.loader}>

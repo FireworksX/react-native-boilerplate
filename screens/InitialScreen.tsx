@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import withStores from '../hocs/withStores'
-import { Stores } from '../types/types'
 import BaseView from '../components/BaseView'
 import { Text, StyleSheet, ActivityIndicator } from 'react-native'
 import LocalStorage from '../utils/LocalStorage'
-import ThemeText from '../components/ThemeText'
 import { useThemeColor } from '../components/Themed'
 import BaseSearch from 'components/BaseSearch'
 

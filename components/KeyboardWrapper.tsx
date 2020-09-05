@@ -13,7 +13,7 @@ export default function KeyboardWrapper({
     return (
         <KeyboardAvoidingView
             style={style}
-            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             {children}
         </KeyboardAvoidingView>

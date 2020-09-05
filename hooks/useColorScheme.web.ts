@@ -1,3 +1,3 @@
 export default function useColorScheme() {
-  return 'light';
+    return 'light'
 }

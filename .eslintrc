@@ -11,8 +11,10 @@
     },
     "parser": "@typescript-eslint/parser",
     "rules": {
+        "no-shadow": "off", // https://github.com/typescript-eslint/typescript-eslint/issues/325
         "@typescript-eslint/semi": "off",
         "@typescript-eslint/indent": "off",
+        "react/prop-types": "off", // Using auto-convert PropTypes from interfaces
         "import/no-unresolved": "off",
         "@typescript-eslint/no-unused-vars": "off", // https://github.com/typescript-eslint/typescript-eslint/issues/46
         "import/extensions": [

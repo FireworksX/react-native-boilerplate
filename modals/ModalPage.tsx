@@ -5,15 +5,11 @@ import React, {
     useRef,
     useState,
 } from 'react'
-import { Dimensions } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet'
-import {
-    View,
-    StyleSheet,
-    LayoutRectangle,
-} from 'react-native'
+import { View, StyleSheet, LayoutRectangle } from 'react-native'
 import Animated from 'react-native-reanimated'
-import ThemeView from "../components/ThemeView";
+import ThemeView from 'components/ThemeView'
+import Layout from 'constants/Layout'
 
 export type ModalPagePoint = string | number
 export type ModalPagePoints = [ModalPagePoint, ModalPagePoint]
@@ -39,7 +35,7 @@ export interface ModalPageProps {
     visible?: boolean
 }
 
-const WINDOW_HEIGHT = Dimensions.get('window').height;
+const WINDOW_HEIGHT = Layout.window.height
 const SAFE_HEIGHT = WINDOW_HEIGHT - 100
 
 const ModalPage: FunctionComponent<ModalPageProps> = ({
@@ -64,7 +60,8 @@ const ModalPage: FunctionComponent<ModalPageProps> = ({
     let calcTotalHeight = 0
 
     const renderPanelContent = () => (
-        <ThemeView mode="modalPageContent"
+        <ThemeView
+            mode="modalPageContent"
             onLayout={({ nativeEvent: { layout } }) => {
                 setPanelLayout(layout)
             }}
@@ -128,13 +125,6 @@ const ModalPage: FunctionComponent<ModalPageProps> = ({
         />
     )
 }
-
-const styles = StyleSheet.create({
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#000',
-    },
-})
 
 ModalPage.defaultProps = {
     points: ['75%', 0],

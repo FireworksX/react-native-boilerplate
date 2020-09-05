@@ -23,7 +23,12 @@ const SelectMimicry: FunctionComponent<SelectMimicryProps> = ({
                 onInput={() => undefined}
                 onPress={onPress}
             />
-            <Icon style={styles.icon} size={15} name="chevron-right" pointerEvents="none" />
+            <Icon
+                style={styles.icon}
+                size={15}
+                name="chevron-right"
+                pointerEvents="none"
+            />
         </View>
     )
 }
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
     icon: {
         position: 'absolute',
         right: 20,
-        top: 25
+        top: 25,
     },
 })
 

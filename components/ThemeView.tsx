@@ -1,16 +1,15 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, FunctionComponent } from 'react'
 import { Text, TextStyle, View, ViewProps } from 'react-native'
 import { ColorName, ThemeProps, useThemeColor } from './Themed'
-import { FunctionComponent } from 'react'
 
-export interface ThemeView extends ViewProps {
+export interface ThemeViewProps extends ViewProps {
     children?: ReactNode | ReactNode[] | undefined
     mode?: ColorName
     borderMode?: ColorName
     theme?: ThemeProps
 }
 
-const ThemeView: FunctionComponent<ThemeView> = ({
+const ThemeView: FunctionComponent<ThemeViewProps> = ({
     children,
     mode,
     theme,
@@ -30,7 +29,7 @@ const ThemeView: FunctionComponent<ThemeView> = ({
                     backgroundColor: color,
                     borderColor,
                 },
-                rest.style
+                rest.style,
             ]}
         >
             {children}

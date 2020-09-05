@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import {Callback, CallbackValue} from '../types/types'
 import Animated from 'react-native-reanimated'
-import {
-    View,
-    Text,
-    StyleSheet,
-    LayoutRectangle,
-    TouchableOpacity,
-} from 'react-native'
-import ThemeView from "./ThemeView";
-import {useThemeColor} from "./Themed";
-import ThemeText from "./ThemeText";
+import { StyleSheet, LayoutRectangle, TouchableOpacity } from 'react-native'
+import ThemeView from 'components/ThemeView'
+import { useThemeColor } from 'components/Themed'
+import ThemeText from 'components/ThemeText'
+import { CallbackValue } from 'types/types'
 
 export type TabbarControlIndex = number
 
@@ -33,26 +27,48 @@ const toggleOffset = new Animated.Value<number>(0)
 
 const ANIMATE_CONFIG = {
     damping: 150,
-    mass: .5,
+    mass: 0.5,
     stiffness: 100,
     overshootClamping: false,
     restSpeedThreshold: 0.001,
     restDisplacementThreshold: 0.001,
 }
 
-const TabbarControl = ({ activeIndex, items, onChange }: TabbarControlProps) => {
+const TabbarControl = ({
+    activeIndex,
+    items,
+    onChange,
+}: TabbarControlProps) => {
     const [layouts, setLayouts] = useState<TabbarControlLayout[]>([])
 
     useEffect(() => {
-        const findLayout: TabbarControlLayout | undefined = layouts.find(({index}: TabbarControlLayout) => index === activeIndex)
+        const findLayout: TabbarControlLayout | undefined = layouts.find(
+            ({ index }: TabbarControlLayout) => index === activeIndex
+        )
 
         if (findLayout) {
             Animated.spring(toggleOffset, {
                 toValue: findLayout.x,
-                ...ANIMATE_CONFIG
+                ...ANIMATE_CONFIG,
             }).start()
         }
     }, [activeIndex])
+
+    const getTabbarFragment = (
+        item: TabbarControlItem,
+        onLayout: (layout: LayoutRectangle, index: number) => void
+    ) => (
+        <TouchableOpacity
+            style={styles.item}
+            key={item.index}
+            onLayout={({ nativeEvent: { layout } }) =>
+                onLayout(layout, item.index)
+            }
+            onPress={() => onChange(item.index)}
+        >
+            <ThemeText mode="typographyLight">{item.name}</ThemeText>
+        </TouchableOpacity>
+    )
 
     const renderItems = (items: TabbarControlItem[]) => {
         // onLayout может отработать перед тем как отренерятся компоненты и может нарушиться порядок добавления в массив
@@ -66,24 +82,8 @@ const TabbarControl = ({ activeIndex, items, onChange }: TabbarControlProps) => 
             ])
         }
 
-        return items.map((item) =>
-            getTabbarFragment(item, onGetLayout)
-        )
+        return items.map((item) => getTabbarFragment(item, onGetLayout))
     }
-
-    const getTabbarFragment = (
-        item: TabbarControlItem,
-        onLayout: (layout: LayoutRectangle, index: number) => void,
-    ) => (
-        <TouchableOpacity
-            style={styles.item}
-            key={item.index}
-            onLayout={({ nativeEvent: { layout } }) => onLayout(layout, item.index)}
-            onPress={() => onChange(item.index)}
-        >
-            <ThemeText mode="typographyLight">{item.name}</ThemeText>
-        </TouchableOpacity>
-    )
 
     const toggleStyle = {
         backgroundColor: useThemeColor({}, 'tabbarFront'),
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         left: 0,
         top: 0,
-
     },
 })
 

@@ -1,15 +1,13 @@
 import React, {
     Children,
-    Component,
-    ComponentType,
+    FunctionComponent,
     ReactNode,
     useEffect,
     useState,
 } from 'react'
-import { StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { ModalPageId, ModalPageLayout } from './ModalPage'
-import BaseButton from '../components/BaseButton'
 
 export type ModalRootActiveModal = ModalPageId | undefined
 
@@ -19,14 +17,36 @@ export interface ModalRootProps {
     onClose?: () => void
 }
 
-let fall = new Animated.Value(1)
+const fall = new Animated.Value(1)
 let activeModalRef: any
-let activeModalForceUpdateCb: Function
 
-export default function ({ children, activeModal, onClose }: ModalRootProps) {
+const ModalRoot: FunctionComponent<ModalRootProps> = ({
+    children,
+    activeModal,
+    onClose,
+}) => {
     const [stateActiveChildren, setStateActiveChildren] = useState<
         ReactNode | undefined
     >()
+
+    const openActiveModal = () => {
+        if (activeModalRef && activeModalRef.current) {
+            activeModalRef.current.snapTo(0)
+        }
+    }
+
+    const doCloseActiveModal = () => {
+        if (onClose) {
+            setStateActiveChildren(undefined)
+            onClose()
+        }
+    }
+
+    const closeActiveModal = () => {
+        if (activeModalRef && activeModalRef.current) {
+            activeModalRef.current.snapTo(1)
+        }
+    }
 
     const getActiveModal = (
         activeModal: string | undefined,
@@ -73,25 +93,6 @@ export default function ({ children, activeModal, onClose }: ModalRootProps) {
         }
     }, [activeModal])
 
-    const openActiveModal = () => {
-        if (activeModalRef && activeModalRef.current) {
-            activeModalRef.current.snapTo(0)
-        }
-    }
-
-    const doCloseActiveModal = () => {
-        if (onClose) {
-            setStateActiveChildren(undefined)
-            onClose()
-        }
-    }
-
-    const closeActiveModal = () => {
-        if (activeModalRef && activeModalRef.current) {
-            activeModalRef.current.snapTo(1)
-        }
-    }
-
     const renderOverlay = () => {
         const animatedShadowOpacity = Animated.interpolate(fall, {
             inputRange: [0, 1],
@@ -132,3 +133,5 @@ const styles = StyleSheet.create({
         zIndex: 9999,
     },
 })
+
+export default ModalRoot

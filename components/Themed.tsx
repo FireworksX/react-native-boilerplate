@@ -1,31 +1,31 @@
-import * as React from 'react';
-import { Text as DefaultText, View as DefaultView } from 'react-native';
+import * as React from 'react'
+import { Text as DefaultText, View as DefaultView } from 'react-native'
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors'
+import useColorScheme from '../hooks/useColorScheme'
 
 export type ColorName = keyof typeof Colors.light & keyof typeof Colors.dark
 
 export function useThemeColor(
-  props: { light?: string; dark?: string },
-  colorName: ColorName
+    props: { light?: string; dark?: string },
+    colorName: ColorName
 ) {
-  const theme = useColorScheme();
-  const colorFromProps = props[theme];
+    const theme = useColorScheme()
+    const colorFromProps = props[theme]
 
-  if (colorFromProps) {
-    return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
-  }
+    if (colorFromProps) {
+        return colorFromProps
+    }
+
+    return Colors[theme][colorName]
 }
 
 export type ThemeProps = {
-  light?: string;
-  dark?: string;
-};
+    light?: string
+    dark?: string
+}
 //
-export type TextProps = DefaultText['props'];
+export type TextProps = DefaultText['props']
 // export type ViewProps = ThemeProps & DefaultView['props'];
 //
 // export function Text(props: TextProps) {
