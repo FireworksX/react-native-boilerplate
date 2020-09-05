@@ -1,0 +1,39 @@
+{
+    "extends": [
+        "airbnb-typescript",
+        "prettier/react",
+        "plugin:prettier/recommended",
+        "eslint-config-prettier",
+        "prettier"
+    ],
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "parser": "@typescript-eslint/parser",
+    "rules": {
+        "@typescript-eslint/semi": "off",
+        "@typescript-eslint/indent": "off",
+        "import/no-unresolved": "off",
+        "@typescript-eslint/no-unused-vars": "off", // https://github.com/typescript-eslint/typescript-eslint/issues/46
+        "import/extensions": [
+            "warn",
+            {
+                "ignorePackages": true,
+                "pattern": {
+                    "js": "never",
+                    "jsx": "never",
+                    "ts": "never",
+                    "tsx": "never",
+                    "svg": "never"
+                }
+            }
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        ]
+    },
+    "plugins": ["prettier"]
+}
