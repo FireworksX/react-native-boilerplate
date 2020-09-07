@@ -1,6 +1,6 @@
 import React, { ReactNode, FunctionComponent } from 'react'
-import { Text, TextStyle, View, ViewProps } from 'react-native'
-import { ColorName, ThemeProps, useThemeColor } from './Themed'
+import { View, ViewProps } from 'react-native'
+import useThemeColor, { ColorName, ThemeProps } from 'hooks/useThemeColor'
 
 export interface ThemeViewProps extends ViewProps {
     children?: ReactNode | ReactNode[] | undefined
@@ -9,18 +9,15 @@ export interface ThemeViewProps extends ViewProps {
     theme?: ThemeProps
 }
 
-const ThemeView: FunctionComponent<ThemeViewProps> = ({
+const UIView: FunctionComponent<ThemeViewProps> = ({
     children,
     mode,
     theme,
     borderMode,
     ...rest
 }) => {
-    const color = useThemeColor(theme ?? {}, mode ?? 'backgroundLight')
-    const borderColor = useThemeColor(
-        theme ?? {},
-        borderMode ?? 'backgroundLight'
-    )
+    const color = useThemeColor('main')
+    const borderColor = useThemeColor('main')
     return (
         <View
             {...rest}
@@ -37,4 +34,4 @@ const ThemeView: FunctionComponent<ThemeViewProps> = ({
     )
 }
 
-export default ThemeView
+export default UIView

@@ -38,7 +38,7 @@ export interface ModalPageProps {
 const WINDOW_HEIGHT = Layout.window.height
 const SAFE_HEIGHT = WINDOW_HEIGHT - 100
 
-const ModalPage: FunctionComponent<ModalPageProps> = ({
+const UIModalPage: FunctionComponent<ModalPageProps> = ({
     children,
     header,
     points,
@@ -126,10 +126,10 @@ const ModalPage: FunctionComponent<ModalPageProps> = ({
     )
 }
 
-ModalPage.defaultProps = {
+UIModalPage.defaultProps = {
     points: ['75%', 0],
     initialPointIndex: 1,
     autoHeight: true,
 }
 
-export default ModalPage
+export default UIModalPage

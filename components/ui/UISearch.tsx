@@ -10,7 +10,24 @@ export interface BaseSearchProps {
     placeholder?: string
 }
 
-const BaseSearch: FunctionComponent<BaseSearchProps> = ({
+const styles = StyleSheet.create({
+    container: {
+        borderRadius: 8,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    input: {
+        paddingLeft: 15,
+        paddingRight: 35,
+        paddingVertical: 10,
+        width: '90%',
+    },
+    aside: {
+        padding: 10,
+    },
+})
+
+const UISearch: FunctionComponent<BaseSearchProps> = ({
     value,
     onChange,
     placeholder,
@@ -58,25 +75,8 @@ const BaseSearch: FunctionComponent<BaseSearchProps> = ({
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        borderRadius: 8,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    input: {
-        paddingLeft: 15,
-        paddingRight: 35,
-        paddingVertical: 10,
-        width: '90%',
-    },
-    aside: {
-        padding: 10,
-    },
-})
-
-BaseSearch.defaultProps = {
+UISearch.defaultProps = {
     placeholder: 'Поиск',
 }
 
-export default BaseSearch
+export default UISearch

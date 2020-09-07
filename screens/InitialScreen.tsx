@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import withStores from '../hocs/withStores'
-import BaseView from '../components/BaseView'
+import BaseView from 'components/BaseView'
 import { Text, StyleSheet, ActivityIndicator } from 'react-native'
 import LocalStorage from '../utils/LocalStorage'
 import { useThemeColor } from '../components/Themed'
 import BaseSearch from 'components/BaseSearch'
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    name: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        marginBottom: 40,
+    },
+})
 
 const InitialScreen = ({ userStore, routerStore }: Stores) => {
     useEffect(() => {
@@ -39,17 +51,5 @@ const InitialScreen = ({ userStore, routerStore }: Stores) => {
         </BaseView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    name: {
-        fontSize: 40,
-        fontWeight: 'bold',
-        marginBottom: 40,
-    },
-})
 
 export default withStores(InitialScreen)

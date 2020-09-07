@@ -1,16 +1,24 @@
 import React, { FunctionComponent } from 'react'
 import { View, StyleSheet } from 'react-native'
-import BaseInput from './BaseInput'
-import { Callback } from '../types/types'
+import BaseInput from 'components/BaseInput'
+import { CallbackMaybe } from 'types/types'
 import Icon from './Icon'
 
 export interface SelectMimicryProps {
     value?: string
     label?: string
-    onPress?: Callback<any, any>
+    onPress?: CallbackMaybe<any, any>
 }
 
-const SelectMimicry: FunctionComponent<SelectMimicryProps> = ({
+const styles = StyleSheet.create({
+    icon: {
+        position: 'absolute',
+        right: 20,
+        top: 25,
+    },
+})
+
+const UISelectMimicry: FunctionComponent<SelectMimicryProps> = ({
     label,
     value,
     onPress,
@@ -33,12 +41,4 @@ const SelectMimicry: FunctionComponent<SelectMimicryProps> = ({
     )
 }
 
-const styles = StyleSheet.create({
-    icon: {
-        position: 'absolute',
-        right: 20,
-        top: 25,
-    },
-})
-
-export default SelectMimicry
+export default UISelectMimicry

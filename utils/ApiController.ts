@@ -40,7 +40,7 @@ export default class ApiController implements IApiController {
         return ApiController.parseResponse(this.$.delete(url, config))
     }
 
-    setToken(token: string) {
+    setToken(token: string): void {
         this.$.defaults.headers.Bearer = token
     }
 

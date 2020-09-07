@@ -1,6 +1,10 @@
 import React, { ReactNode, FunctionComponent } from 'react'
 import { Text, TextStyle } from 'react-native'
-import { ColorName, TextProps, ThemeProps, useThemeColor } from 'components/Themed'
+import useThemeColor, {
+    ColorName,
+    TextProps,
+    ThemeProps,
+} from 'hooks/useThemeColor'
 
 export interface ThemeTextProps extends TextProps {
     children?: string | ReactNode
@@ -8,13 +12,13 @@ export interface ThemeTextProps extends TextProps {
     theme?: ThemeProps
 }
 
-const ThemeText: FunctionComponent<ThemeTextProps> = ({
+const UIText: FunctionComponent<ThemeTextProps> = ({
     children,
     mode,
     theme,
     ...rest
 }) => {
-    const color = useThemeColor(theme ?? {}, mode ?? 'typographyDark')
+    const color = useThemeColor('main')
     return (
         <Text
             {...rest}
@@ -30,4 +34,4 @@ const ThemeText: FunctionComponent<ThemeTextProps> = ({
     )
 }
 
-export default ThemeText
+export default UIText

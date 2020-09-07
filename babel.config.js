@@ -3,12 +3,14 @@ const plugins = []
 const pathAliases = {
     components: './components',
     hocs: './hocs',
-    modals: './modals',
+    modals: './components/modals',
     store: './store',
     screens: './screens',
     types: './types',
     assets: './assets',
     constants: './constants',
+    ui: './components/ui',
+    themes: './themes',
 }
 
 plugins.push('module-resolver')

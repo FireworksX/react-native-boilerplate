@@ -19,7 +19,9 @@
             "screens": ["screens/*"],
             "types": ["types/*"],
             "assets": ["assets/*"],
-            "constants": ["constants/*"]
+            "constants": ["constants/*"],
+            "ui": ["components/ui/*"],
+            "themes": ["themes/*"]
         }
     }
 }

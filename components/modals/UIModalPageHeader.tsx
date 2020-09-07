@@ -1,21 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { View, StyleSheet } from 'react-native'
-import ThemeView from '../components/ThemeView'
+import UIView from 'components/ui/UIView'
 
 export interface ModalPageHeaderProps {}
-
-const ModalPageHeader: FunctionComponent<ModalPageHeaderProps> = () => {
-    return (
-        <ThemeView mode="modalPageContent" style={styles.header}>
-            <View style={styles.panelHeader}>
-                <ThemeView
-                    mode="modalHeaderHandler"
-                    style={styles.panelHandle}
-                />
-            </View>
-        </ThemeView>
-    )
-}
 
 const styles = StyleSheet.create({
     header: {
@@ -35,4 +22,17 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ModalPageHeader
+const UIModalPageHeader: FunctionComponent<ModalPageHeaderProps> = () => {
+    return (
+        <UIView mode="modalPageContent" style={styles.header}>
+            <View style={styles.panelHeader}>
+                <UIView
+                    mode="modalHeaderHandler"
+                    style={styles.panelHandle}
+                />
+            </View>
+        </UIView>
+    )
+}
+
+export default UIModalPageHeader

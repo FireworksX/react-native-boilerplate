@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { ModalPageId, ModalPageLayout } from './ModalPage'
+import { ModalPageId, ModalPageLayout } from './UIModalPage'
 
 export type ModalRootActiveModal = ModalPageId | undefined
 
@@ -20,7 +20,15 @@ export interface ModalRootProps {
 const fall = new Animated.Value(1)
 let activeModalRef: any
 
-const ModalRoot: FunctionComponent<ModalRootProps> = ({
+const styles = StyleSheet.create({
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: '#000',
+        zIndex: 9999,
+    },
+})
+
+const UIModalRoot: FunctionComponent<ModalRootProps> = ({
     children,
     activeModal,
     onClose,
@@ -126,12 +134,4 @@ const ModalRoot: FunctionComponent<ModalRootProps> = ({
     )
 }
 
-const styles = StyleSheet.create({
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#000',
-        zIndex: 9999,
-    },
-})
-
-export default ModalRoot
+export default UIModalRoot

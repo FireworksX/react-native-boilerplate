@@ -10,6 +10,7 @@
 - **Theming**: organize auto-detect theme device
 - Create **base ui** components for very fast start
 - Configure state management: Using **Mobx** + **Mobx State Tree**
+- **Dependency Injection**
 - **Full TypeScript coverage**
  
 ## State management
@@ -34,7 +35,7 @@ You can extend this configuration
 
 #### Example
 ```js
-import BaseSearch from 'components/BaseSearch'
+import UISearch from 'components/UISearch'
 import withStores from 'hocs/withStores'
 ```
 

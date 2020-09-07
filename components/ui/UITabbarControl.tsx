@@ -34,7 +34,34 @@ const ANIMATE_CONFIG = {
     restDisplacementThreshold: 0.001,
 }
 
-const TabbarControl = ({
+const styles = StyleSheet.create({
+    underlay: {
+        flexDirection: 'row',
+        borderRadius: 16,
+    },
+    item: {
+        height: 40,
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    itemText: {
+        fontSize: 14,
+    },
+    toggle: {
+        position: 'absolute',
+        height: 40,
+        width: 195,
+        borderWidth: 2,
+        borderColor: '#F5F5F5',
+        backgroundColor: '#fff',
+        borderRadius: 16,
+        left: 0,
+        top: 0,
+    },
+})
+
+const UITabbarControl = ({
     activeIndex,
     items,
     onChange,
@@ -106,31 +133,4 @@ const TabbarControl = ({
     )
 }
 
-const styles = StyleSheet.create({
-    underlay: {
-        flexDirection: 'row',
-        borderRadius: 16,
-    },
-    item: {
-        height: 40,
-        flexGrow: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    itemText: {
-        fontSize: 14,
-    },
-    toggle: {
-        position: 'absolute',
-        height: 40,
-        width: 195,
-        borderWidth: 2,
-        borderColor: '#F5F5F5',
-        backgroundColor: '#fff',
-        borderRadius: 16,
-        left: 0,
-        top: 0,
-    },
-})
-
-export default TabbarControl
+export default UITabbarControl
