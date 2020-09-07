@@ -7,6 +7,7 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import useThemeColor from 'hooks/useThemeColor'
+import UIView from 'components/ui/UIView'
 
 export interface ViewWithModalProps {
     style?: ViewStyle
@@ -17,7 +18,6 @@ export interface ViewWithModalProps {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     loaderLayout: {
         ...StyleSheet.absoluteFillObject,
@@ -26,13 +26,11 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: '#000',
         opacity: 0.6,
     },
     loader: {
         padding: 20,
         borderRadius: 8,
-        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -51,7 +49,6 @@ const UILayout: FunctionComponent<ViewWithModalProps> = ({
             style={{
                 ...styles.container,
                 ...style,
-                backgroundColor: useThemeColor('main'),
             }}
         >
             {children}
@@ -59,10 +56,25 @@ const UILayout: FunctionComponent<ViewWithModalProps> = ({
             {isLoading && (
                 <Modal transparent>
                     <View style={styles.loaderLayout}>
-                        <View style={styles.overlay} />
-                        <View style={styles.loader}>
-                            <ActivityIndicator size="large" color="#000" />
-                        </View>
+                        <View
+                            style={[
+                                styles.overlay,
+                                {
+                                    backgroundColor: useThemeColor(
+                                        'viewLoaderOverlay'
+                                    ),
+                                },
+                            ]}
+                        />
+                        <UIView
+                            mode="viewLoaderBackground"
+                            style={styles.loader}
+                        >
+                            <ActivityIndicator
+                                size="large"
+                                color={useThemeColor('viewLoaderIndicator')}
+                            />
+                        </UIView>
                     </View>
                 </Modal>
             )}

@@ -1,12 +1,9 @@
 const light = {
-    main: '#323232',
+    textMain: '#323232',
 }
 
 const dark = {
-    main: '#fff',
+    textMain: '#fff',
 }
 
-export default {
-    light,
-    dark,
-}
+export { light, dark }

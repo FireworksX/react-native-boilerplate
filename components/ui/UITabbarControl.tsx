@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Animated from 'react-native-reanimated'
 import { StyleSheet, LayoutRectangle, TouchableOpacity } from 'react-native'
-import ThemeView from 'components/ThemeView'
-import { useThemeColor } from 'components/Themed'
-import ThemeText from 'components/ThemeText'
 import { CallbackValue } from 'types/types'
+import UIText from 'components/ui/UIText'
+import UIView from 'components/ui/UIView'
+import useThemeColor from 'hooks/useThemeColor'
 
 export type TabbarControlIndex = number
 
@@ -93,7 +93,7 @@ const UITabbarControl = ({
             }
             onPress={() => onChange(item.index)}
         >
-            <ThemeText mode="typographyLight">{item.name}</ThemeText>
+            <UIText mode="TabbarText">{item.name}</UIText>
         </TouchableOpacity>
     )
 
@@ -113,12 +113,12 @@ const UITabbarControl = ({
     }
 
     const toggleStyle = {
-        backgroundColor: useThemeColor({}, 'tabbarFront'),
-        borderColor: useThemeColor({}, 'tabbarBack'),
+        backgroundColor: useThemeColor('TabbarFront'),
+        borderColor: useThemeColor('TabbarBack'),
     }
 
     return (
-        <ThemeView mode="tabbarBack" style={styles.underlay}>
+        <UIView mode="TabbarBack" style={styles.underlay}>
             <Animated.View
                 style={[
                     styles.toggle,
@@ -129,7 +129,7 @@ const UITabbarControl = ({
                 ]}
             />
             {renderItems(items)}
-        </ThemeView>
+        </UIView>
     )
 }
 

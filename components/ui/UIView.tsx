@@ -16,8 +16,8 @@ const UIView: FunctionComponent<ThemeViewProps> = ({
     borderMode,
     ...rest
 }) => {
-    const color = useThemeColor('main')
-    const borderColor = useThemeColor('main')
+    const color = useThemeColor(mode ?? 'viewMain')
+    const borderColor = useThemeColor(borderMode ?? 'textMain')
     return (
         <View
             {...rest}

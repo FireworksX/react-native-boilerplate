@@ -20,7 +20,7 @@
             "types": ["types/*"],
             "assets": ["assets/*"],
             "constants": ["constants/*"],
-            "ui": ["components/ui/*"],
+            "hooks": ["hooks/*"],
             "themes": ["themes/*"]
         }
     }

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import withStores from '../hocs/withStores'
-import BaseView from 'components/BaseView'
-import { Text, StyleSheet, ActivityIndicator } from 'react-native'
-import LocalStorage from '../utils/LocalStorage'
-import { useThemeColor } from '../components/Themed'
-import BaseSearch from 'components/BaseSearch'
+import { Text, StyleSheet, ActivityIndicator, View } from 'react-native'
+import UILayout from 'components/ui/UILayout'
+import UIView from 'components/ui/UIView'
+import UIText from 'components/ui/UIText'
+import UITabbarControl, {
+    TabbarControlIndex,
+    TabbarControlItem,
+} from 'components/ui/UITabbarControl'
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -18,38 +21,45 @@ const styles = StyleSheet.create({
     },
 })
 
-const InitialScreen = ({ userStore, routerStore }: Stores) => {
+const InitialScreen = () => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [activeTheme, setActiveTheme] = useState<TabbarControlIndex>(0)
+
     useEffect(() => {
-        initApp()
-    }, [])
 
-    const initApp = async () => {
-        const token = await LocalStorage.getItem('token')
-        if (token) {
-            const data = await userStore.fetchUser(token)
-            if (data) {
-                routerStore.replace('Root')
-            } else {
-                routerStore.replace('AuthLogin')
-            }
-        } else {
-            routerStore.replace('AuthLogin')
-        }
-    }
+    }, [activeTheme])
 
-    const [isOpen, setIsOpen] = useState(false)
+    const themes: TabbarControlItem[] = [
+        {
+            index: 0,
+            name: 'Light',
+        },
+        {
+            index: 1,
+            name: 'Dark',
+        },
+    ]
 
-    const textColor = useThemeColor({}, 'typographyLight')
+    setTimeout(() => {
+        setIsLoading(false)
+    }, 2000)
 
     return (
-        <BaseView style={styles.container}>
-            <BaseSearch onChange={() => undefined} value={''} />
-            <ThemeText mode="typographyLight" style={styles.name}>
-                Museum
-            </ThemeText>
-            <ActivityIndicator size="small" color={textColor} />
-        </BaseView>
+        <UILayout isLoading={isLoading}>
+            <UIView style={styles.container} mode="viewMain">
+                <UIText style={styles.name} mode="textMain">
+                    Initial
+                </UIText>
+                <View style={{ padding: 20, width: '100%' }}>
+                    <UITabbarControl
+                        items={themes}
+                        activeIndex={activeTheme}
+                        onChange={setActiveTheme}
+                    />
+                </View>
+            </UIView>
+        </UILayout>
     )
 }
 
-export default withStores(InitialScreen)
+export default InitialScreen

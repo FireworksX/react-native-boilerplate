@@ -18,7 +18,7 @@ const UIText: FunctionComponent<ThemeTextProps> = ({
     theme,
     ...rest
 }) => {
-    const color = useThemeColor('main')
+    const color = useThemeColor(mode ?? 'textMain')
     return (
         <Text
             {...rest}

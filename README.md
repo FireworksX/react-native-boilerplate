@@ -28,6 +28,7 @@ For control App state using **Mobx** + **Mobx State Tree**
 - types = **./types**
 - assets = **./assets**
 - constants = **./constants**
+- hooks = **./hooks**
 
 You can extend this configuration
 - Add alias in `` babel.config.js ``

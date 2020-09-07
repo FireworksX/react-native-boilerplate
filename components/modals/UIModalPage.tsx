@@ -62,7 +62,7 @@ const UIModalPage: FunctionComponent<ModalPageProps> = ({
     const renderPanelContent = () => (
         <ThemeView
             mode="modalPageContent"
-            onLayout={({ nativeEvent: { layout } }) => {
+            onLayout={({ nativeEvent: { layout } }: any) => {
                 setPanelLayout(layout)
             }}
         >

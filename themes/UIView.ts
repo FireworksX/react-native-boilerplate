@@ -1,12 +1,15 @@
 const light = {
-    main: '#fff',
+    viewMain: '#fff',
+    viewLoaderBackground: '#fff',
+    viewLoaderIndicator: '#000',
+    viewLoaderOverlay: '#000',
 }
 
 const dark = {
-    main: '#323232',
+    viewMain: '#323232',
+    viewLoaderBackground: '#323232',
+    viewLoaderIndicator: '#fff',
+    viewLoaderOverlay: '#000',
 }
 
-export default {
-    light,
-    dark,
-}
+export { dark, light }
