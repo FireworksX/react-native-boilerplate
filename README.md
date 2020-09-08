@@ -19,6 +19,27 @@ For control App state using **Mobx** + **Mobx State Tree**
     ./store/
 ``
 
+## Themes
+You can create multiply themes for you application.
+Color schemes located ``` ./themes/ ```  directory
+#### App automatic detect device color theme
+
+Also you can control theme with ``` useTheme ``` hook
+#### Example
+```js
+const { setTheme, theme } = useTheme()
+
+setTheme('dark') // Possible 'dark' or 'light'
+```
+
+Or using **Context API**
+```js
+import { ThemeManagerContext } from 'components/ThemeManager'
+```
+
+#### All UI components already adaptive for multiple themes
+
+
 ## Import Aliases
 - components = **./components**
 - hocs = **./hocs**

@@ -7,6 +7,8 @@ import UITabbarControl, {
     TabbarControlIndex,
     TabbarControlItem,
 } from 'components/ui/UITabbarControl'
+import ThemeManager, { ThemeManagerContext } from 'components/ThemeManager'
+import useTheme from 'hooks/useTheme'
 
 const styles = StyleSheet.create({
     container: {
@@ -24,9 +26,11 @@ const styles = StyleSheet.create({
 const InitialScreen = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [activeTheme, setActiveTheme] = useState<TabbarControlIndex>(0)
+    const { setTheme } = useTheme()
 
     useEffect(() => {
-
+        const value = activeTheme !== 0 ? 'dark' : 'light'
+        setTheme(value)
     }, [activeTheme])
 
     const themes: TabbarControlItem[] = [
