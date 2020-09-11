@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Text, StyleSheet, ActivityIndicator, View } from 'react-native'
+import {
+    Text,
+    StyleSheet,
+    ActivityIndicator,
+    View,
+    ColorSchemeName,
+} from 'react-native'
 import UILayout from 'components/ui/UILayout'
 import UIView from 'components/ui/UIView'
 import UIText from 'components/ui/UIText'
@@ -7,8 +13,8 @@ import UITabbarControl, {
     TabbarControlIndex,
     TabbarControlItem,
 } from 'components/ui/UITabbarControl'
-import ThemeManager, { ThemeManagerContext } from 'components/ThemeManager'
 import useTheme from 'hooks/useTheme'
+import useColorScheme from '../hooks/useColorScheme'
 
 const styles = StyleSheet.create({
     container: {
@@ -25,21 +31,28 @@ const styles = StyleSheet.create({
 
 const InitialScreen = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const [activeTheme, setActiveTheme] = useState<TabbarControlIndex>(0)
+    const [activeTheme, setActiveTheme] = useState<'dark' | 'light' | 'auto'>(
+        'light'
+    )
     const { setTheme } = useTheme()
+    const deviceTheme = useColorScheme()
 
     useEffect(() => {
-        const value = activeTheme !== 0 ? 'dark' : 'light'
-        setTheme(value)
+        const realMode = activeTheme === 'auto' ? deviceTheme : activeTheme
+        setTheme(realMode)
     }, [activeTheme])
 
     const themes: TabbarControlItem[] = [
         {
-            index: 0,
+            index: 'light',
             name: 'Light',
         },
         {
-            index: 1,
+            index: 'auto',
+            name: 'Auto',
+        },
+        {
+            index: 'dark',
             name: 'Dark',
         },
     ]

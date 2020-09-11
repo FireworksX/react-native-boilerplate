@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import Animated from 'react-native-reanimated'
-import { StyleSheet, LayoutRectangle, TouchableOpacity } from 'react-native'
+import {
+    StyleSheet,
+    LayoutRectangle,
+    TouchableOpacity,
+    View,
+} from 'react-native'
 import { CallbackValue } from 'types/types'
 import UIText from 'components/ui/UIText'
 import UIView from 'components/ui/UIView'
 import useThemeColor from 'hooks/useThemeColor'
+import {
+    panGestureHandler,
+    useDebug,
+    usePanGestureHandler,
+    withSpring,
+} from 'react-native-redash'
+import { PanGestureHandler } from 'react-native-gesture-handler'
 
-export type TabbarControlIndex = number
+export type TabbarControlIndex<T = any> = T | string | number
 
-export interface TabbarControlLayout extends LayoutRectangle {
-    index: number
+export interface TabbarControlLayout {
+    index: TabbarControlIndex
+    width: number
+    x: number
 }
 
 export interface TabbarControlItem {
@@ -23,7 +37,18 @@ export interface TabbarControlProps {
     onChange: CallbackValue<TabbarControlIndex, void>
 }
 
+export interface TAbbarAnimateValues {
+    x: number
+    width: number
+}
+
+export interface TabbarLayoutIndex {
+    layout: LayoutRectangle
+    index: TabbarControlIndex
+}
+
 const toggleOffset = new Animated.Value<number>(0)
+const toggleWidth = new Animated.Value<number>(0)
 
 const ANIMATE_CONFIG = {
     damping: 150,
@@ -67,6 +92,63 @@ const UITabbarControl = ({
     onChange,
 }: TabbarControlProps) => {
     const [layouts, setLayouts] = useState<TabbarControlLayout[]>([])
+    const {
+        gestureHandler,
+        velocity,
+        translation,
+        state,
+    } = usePanGestureHandler()
+    const translateXValue = withSpring({
+        state,
+        velocity: velocity.x,
+        value: translation.x,
+        config: ANIMATE_CONFIG,
+        snapPoints: [0, 100, 200],
+    })
+
+    const getTabbarFragment = (
+        item: TabbarControlItem,
+        onLayout: CallbackValue<TabbarLayoutIndex, void>
+    ) => (
+        <View
+            style={styles.item}
+            key={item.index}
+            pointerEvents={item.index === activeIndex ? 'none' : 'auto'}
+            onLayout={({ nativeEvent: { layout } }) =>
+                onLayout({ layout, index: item.index })
+            }
+        >
+            <TouchableOpacity onPress={() => onChange(item.index)}>
+                <UIText mode="TabbarText">{item.name}</UIText>
+            </TouchableOpacity>
+        </View>
+    )
+
+    const renderItems = (items: TabbarControlItem[]) => {
+        const onGetLayout = (layoutIndex: TabbarLayoutIndex) => {
+            setLayouts([
+                ...layouts,
+                {
+                    index: layoutIndex.index,
+                    width: layoutIndex.layout.width,
+                    x: layoutIndex.layout.x,
+                },
+            ])
+        }
+
+        return items.map((el) => getTabbarFragment(el, onGetLayout))
+    }
+
+    const setAnimateValues = ({ x, width }: TAbbarAnimateValues) => {
+        Animated.spring(toggleOffset, {
+            toValue: x,
+            ...ANIMATE_CONFIG,
+        }).start()
+        Animated.spring(toggleWidth, {
+            toValue: width,
+            ...ANIMATE_CONFIG,
+        }).start()
+    }
 
     useEffect(() => {
         const findLayout: TabbarControlLayout | undefined = layouts.find(
@@ -74,43 +156,12 @@ const UITabbarControl = ({
         )
 
         if (findLayout) {
-            Animated.spring(toggleOffset, {
-                toValue: findLayout.x,
-                ...ANIMATE_CONFIG,
-            }).start()
+            setAnimateValues({
+                x: findLayout?.x ?? 0,
+                width: findLayout?.width ?? 0,
+            })
         }
     }, [activeIndex])
-
-    const getTabbarFragment = (
-        item: TabbarControlItem,
-        onLayout: (layout: LayoutRectangle, index: number) => void
-    ) => (
-        <TouchableOpacity
-            style={styles.item}
-            key={item.index}
-            onLayout={({ nativeEvent: { layout } }) =>
-                onLayout(layout, item.index)
-            }
-            onPress={() => onChange(item.index)}
-        >
-            <UIText mode="TabbarText">{item.name}</UIText>
-        </TouchableOpacity>
-    )
-
-    const renderItems = (items: TabbarControlItem[]) => {
-        // onLayout может отработать перед тем как отренерятся компоненты и может нарушиться порядок добавления в массив
-        const onGetLayout = (layout: LayoutRectangle, index: number) => {
-            setLayouts([
-                ...layouts,
-                {
-                    index,
-                    ...layout,
-                },
-            ])
-        }
-
-        return items.map((item) => getTabbarFragment(item, onGetLayout))
-    }
 
     const toggleStyle = {
         backgroundColor: useThemeColor('TabbarFront'),
@@ -119,15 +170,18 @@ const UITabbarControl = ({
 
     return (
         <UIView mode="TabbarBack" style={styles.underlay}>
-            <Animated.View
-                style={[
-                    styles.toggle,
-                    toggleStyle,
-                    {
-                        transform: [{ translateX: toggleOffset }],
-                    },
-                ]}
-            />
+            <PanGestureHandler {...gestureHandler}>
+                <Animated.View
+                    style={[
+                        styles.toggle,
+                        toggleStyle,
+                        {
+                            transform: [{ translateX: toggleOffset }],
+                            width: toggleWidth,
+                        },
+                    ]}
+                />
+            </PanGestureHandler>
             {renderItems(items)}
         </UIView>
     )
