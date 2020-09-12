@@ -15,6 +15,7 @@ import UITabbarControl, {
 } from 'components/ui/UITabbarControl'
 import useTheme from 'hooks/useTheme'
 import useColorScheme from '../hooks/useColorScheme'
+import useStore from '../hooks/useStore'
 
 const styles = StyleSheet.create({
     container: {
@@ -30,12 +31,14 @@ const styles = StyleSheet.create({
 })
 
 const InitialScreen = () => {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [activeTheme, setActiveTheme] = useState<'dark' | 'light' | 'auto'>(
         'light'
     )
     const { setTheme } = useTheme()
     const deviceTheme = useColorScheme()
+
+    const Root = useStore()
 
     useEffect(() => {
         const realMode = activeTheme === 'auto' ? deviceTheme : activeTheme
@@ -57,15 +60,11 @@ const InitialScreen = () => {
         },
     ]
 
-    setTimeout(() => {
-        setIsLoading(false)
-    }, 2000)
-
     return (
         <UILayout isLoading={isLoading}>
             <UIView style={styles.container} mode="viewMain">
                 <UIText style={styles.name} mode="textMain">
-                    Initial
+                    {Root.test}
                 </UIText>
                 <View style={{ padding: 20, width: '100%' }}>
                     <UITabbarControl
