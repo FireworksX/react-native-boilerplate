@@ -3,8 +3,10 @@ import App from 'constants/App'
 import {
     IApiController,
     IApiResponse,
+    IResponse,
     ResponseState,
 } from 'types/ApiControllerTypes'
+import { authUserMock } from '../mocks/api'
 
 export default class ApiController implements IApiController {
     private $: AxiosInstance
@@ -42,6 +44,10 @@ export default class ApiController implements IApiController {
 
     setToken(token: string): void {
         this.$.defaults.headers.Bearer = token
+    }
+
+    async authUser(login: string, password: string): Promise<IResponse> {
+        return ApiController.parseResponse(authUserMock())
     }
 
     static async parseResponse(req: AxiosPromise): IApiResponse {

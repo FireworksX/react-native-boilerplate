@@ -37,8 +37,8 @@
     "expo-status-bar": "^1.0.2",
     "expo-web-browser": "~8.3.1",
     "mobx": "^5.15.5",
+    "mobx-react-lite": "^2.2.1",
     "mobx-state-tree": "^3.17.2",
-    "module-resolver": "^1.0.0",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
@@ -74,6 +74,7 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
     "jest-expo": "~38.0.0",
+    "module-resolver": "^1.0.0",
     "prettier": "^2.0.5",
     "typescript": "~3.9.5"
   },

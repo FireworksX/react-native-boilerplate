@@ -55,6 +55,7 @@ module.exports = function (api) {
                         constants: './constants',
                         themes: './themes',
                         hooks: './hooks',
+                        utils: './utils',
                     },
                 },
             ],

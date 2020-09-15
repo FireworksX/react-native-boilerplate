@@ -21,7 +21,8 @@
             "assets": ["assets/*"],
             "constants": ["constants/*"],
             "hooks": ["hooks/*"],
-            "themes": ["themes/*"]
+            "themes": ["themes/*"],
+            "utils": ["utils/*"]
         }
     }
 }

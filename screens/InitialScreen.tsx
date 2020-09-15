@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import {
-    Text,
-    StyleSheet,
-    ActivityIndicator,
-    View,
-    ColorSchemeName,
-} from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import UILayout from 'components/ui/UILayout'
 import UIView from 'components/ui/UIView'
-import UIText from 'components/ui/UIText'
-import UITabbarControl, {
-    TabbarControlIndex,
-    TabbarControlItem,
-} from 'components/ui/UITabbarControl'
-import useTheme from 'hooks/useTheme'
-import useColorScheme from '../hooks/useColorScheme'
 import useStore from '../hooks/useStore'
+import UIText from 'components/ui/UIText'
 
 const styles = StyleSheet.create({
     container: {
@@ -31,51 +20,32 @@ const styles = StyleSheet.create({
 })
 
 const InitialScreen = () => {
-    const [isLoading, setIsLoading] = useState(false)
-    const [activeTheme, setActiveTheme] = useState<'dark' | 'light' | 'auto'>(
-        'light'
-    )
-    const { setTheme } = useTheme()
-    const deviceTheme = useColorScheme()
-
-    const Root = useStore()
+    const {
+        UserStore: { checkToken, authUser, logOut, fullName, token, isLoading },
+    } = useStore()
 
     useEffect(() => {
-        const realMode = activeTheme === 'auto' ? deviceTheme : activeTheme
-        setTheme(realMode)
-    }, [activeTheme])
-
-    const themes: TabbarControlItem[] = [
-        {
-            index: 'light',
-            name: 'Light',
-        },
-        {
-            index: 'auto',
-            name: 'Auto',
-        },
-        {
-            index: 'dark',
-            name: 'Dark',
-        },
-    ]
+        checkToken()
+    }, [])
 
     return (
         <UILayout isLoading={isLoading}>
             <UIView style={styles.container} mode="viewMain">
-                <UIText style={styles.name} mode="textMain">
-                    {Root.test}
-                </UIText>
-                <View style={{ padding: 20, width: '100%' }}>
-                    <UITabbarControl
-                        items={themes}
-                        activeIndex={activeTheme}
-                        onChange={setActiveTheme}
-                    />
-                </View>
+                <UIText mode="textMain">{fullName}</UIText>
+                {token ? (
+                    <TouchableOpacity onPress={logOut}>
+                        <UIText>logout</UIText>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity
+                        onPress={() => authUser('admin', 'admin')}
+                    >
+                        <UIText>login</UIText>
+                    </TouchableOpacity>
+                )}
             </UIView>
         </UILayout>
     )
 }
 
-export default InitialScreen
+export default observer(InitialScreen)
