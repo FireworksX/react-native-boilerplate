@@ -3,8 +3,9 @@ import { observer } from 'mobx-react-lite'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import UILayout from 'components/ui/UILayout'
 import UIView from 'components/ui/UIView'
-import useStore from '../hooks/useStore'
+import useStore from 'hooks/useStore'
 import UIText from 'components/ui/UIText'
+import UIButton from 'components/ui/UIButton'
 
 const styles = StyleSheet.create({
     container: {
@@ -31,6 +32,7 @@ const InitialScreen = () => {
     return (
         <UILayout isLoading={isLoading}>
             <UIView style={styles.container} mode="viewMain">
+                <UIButton size="l">Login</UIButton>
                 <UIText mode="textMain">{fullName}</UIText>
                 {token ? (
                     <TouchableOpacity onPress={logOut}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeManagerContext } from 'components/ThemeManager'
 import { ColorSchemeName } from 'react-native'
-import { CallbackValue } from '../types/types'
+import { CallbackValue } from 'types/types'
 
 export default (): {
     theme: NonNullable<ColorSchemeName>
