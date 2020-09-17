@@ -45,12 +45,7 @@ const UILayout: FunctionComponent<ViewWithModalProps> = ({
     const activeModal = modal?.props?.activeModal ?? undefined
 
     return (
-        <View
-            style={{
-                ...styles.container,
-                ...style,
-            }}
-        >
+        <View style={[style, styles.container]}>
             {children}
             {activeModal && <Modal transparent>{modal}</Modal>}
             {isLoading && (

@@ -9,9 +9,9 @@ import UIButton from 'components/ui/UIButton'
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        flex: 1
     },
     name: {
         fontSize: 40,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
 })
 
-const InitialScreen = () => {
+const InitialScreen = ({ navigation }) => {
     const {
         UserStore: { checkToken, authUser, logOut, fullName, token, isLoading },
     } = useStore()
@@ -30,9 +30,11 @@ const InitialScreen = () => {
     }, [])
 
     return (
-        <UILayout isLoading={isLoading}>
-            <UIView style={styles.container} mode="viewMain">
-                <UIButton size="l">Login</UIButton>
+        <UILayout>
+            <UIView style={styles.container}>
+                <UIButton onPress={() => navigation.navigate('AuthScreen')}>
+                    Login
+                </UIButton>
                 <UIText mode="textMain">{fullName}</UIText>
                 {token ? (
                     <TouchableOpacity onPress={logOut}>

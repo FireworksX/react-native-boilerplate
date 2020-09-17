@@ -10,6 +10,7 @@ import { ColorSchemeName } from 'react-native'
 
 import { RootStackParamList } from '../types'
 import InitialScreen from '../screens/InitialScreen'
+import AuthScreen from '../screens/AuthScreen'
 
 export default function Navigation({
     colorScheme,
@@ -19,10 +20,7 @@ export default function Navigation({
     const navigationRef = useRef<any>()
 
     return (
-        <NavigationContainer
-            theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-            ref={navigationRef}
-        >
+        <NavigationContainer ref={navigationRef}>
             <RootNavigator />
         </NavigationContainer>
     )
@@ -37,6 +35,7 @@ function RootNavigator() {
             initialRouteName="InitialScreen"
         >
             <Stack.Screen name="InitialScreen" component={InitialScreen} />
+            <Stack.Screen name="AuthScreen" component={AuthScreen} />
         </Stack.Navigator>
     )
 }

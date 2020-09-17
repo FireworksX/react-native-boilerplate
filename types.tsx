@@ -8,7 +8,7 @@ export type RootStackParamList = {
     InitialScreen: undefined
     Root: undefined
     NotFound: undefined
-    AuthLogin: undefined
+    AuthScreen: undefined
     AuthRegister: undefined
     AuthSelectRole: undefined
     AuthFinish: undefined
